@@ -65,6 +65,11 @@ func (h *Handler) SynthesizeHandler(c echo.Context) error {
 
 	// check if file exists
 	if _, err := os.Stat(filepath); err == nil {
+	 // Set appropriate headers for audio streaming
+	    c.Response().Header().Set("Content-Type", "audio/mpeg")
+	    c.Response().Header().Set("Content-Disposition", "inline")
+	    // Allow seeking
+	    c.Response().Header().Set("Accept-Ranges", "bytes")
 		return c.File(filepath)
 	}
 
@@ -86,6 +91,12 @@ func (h *Handler) SynthesizeHandler(c echo.Context) error {
 			Details: err.Error(),
 		})
 	}
+
+ 	// Set appropriate headers for audio streaming
+    c.Response().Header().Set("Content-Type", "audio/mpeg")
+    c.Response().Header().Set("Content-Disposition", "inline")
+    // Allow seeking
+    c.Response().Header().Set("Accept-Ranges", "bytes")
 
 	// Return response
 	return c.File(filepath)

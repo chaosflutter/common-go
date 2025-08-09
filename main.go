@@ -34,7 +34,7 @@ func main() {
 	})
 
 	// API group
-	api := e.Group("/api")
+	api := e.Group("/capi")
 
 	// Load TTS configuration
 	ttsConfig := tts.LoadConfig()

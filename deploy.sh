@@ -27,11 +27,11 @@ else
     echo "Local branch is up to date with remote."
 fi
 
-IMAGE_NAME="registry.cn-qingdao.aliyuncs.com/chaosflutter/memowise-go"
+IMAGE_NAME="registry.cn-qingdao.aliyuncs.com/chaosflutter/common-go"
 IMAGE_TAG=$(git rev-parse --short=6 HEAD)
-CONTAINER_NAME="memowise-go"
-PORT_MAPPING="1334:1334"
-VOLUME_MAPPING="/root/logs:/root/logs"
+CONTAINER_NAME="common-go"
+PORT_MAPPING="8080:8080"
+VOLUME_MAPPING="/root/audio:/root/audio"
 
 DOCKER_BUILDKIT=1 \
 DOCKER_DEFAULT_PLATFORM=linux/amd64 \

@@ -58,7 +58,51 @@ docker-build: ## Build Docker image
 
 docker-run: ## Run application in Docker
 	@echo "🐳 Running application in Docker..."
-	@docker run -p 8080:8080 common-go-app
+	@docker run -p 8080:8080 \
+		-v $(shell pwd)/logs:/root/logs \
+		-v $(shell pwd)/audio:/root/audio \
+		-v $(shell pwd)/.env:/root/.env:ro \
+		common-go-app
+
+docker-run-detached: ## Run application in Docker (detached mode)
+	@echo "🐳 Running application in Docker (detached)..."
+	@docker run -d -p 8080:8080 \
+		-v $(shell pwd)/logs:/root/logs \
+		-v $(shell pwd)/audio:/root/audio \
+		-v $(shell pwd)/.env:/root/.env:ro \
+		--name common-go-container common-go-app
+	@echo "✅ Container started! Access at http://localhost:8080"
+
+docker-stop: ## Stop Docker container
+	@echo "🐳 Stopping Docker container..."
+	@docker stop common-go-container || true
+	@docker rm common-go-container || true
+	@echo "✅ Container stopped!"
+
+docker-logs: ## View Docker container logs
+	@docker logs -f common-go-container
+
+docker-compose-up: ## Run with docker-compose
+	@echo "🐳 Starting with docker-compose..."
+	@docker-compose up --build
+
+docker-compose-up-detached: ## Run with docker-compose (detached)
+	@echo "🐳 Starting with docker-compose (detached)..."
+	@docker-compose up -d --build
+	@echo "✅ Services started! Access at http://localhost:8080"
+
+docker-compose-down: ## Stop docker-compose services
+	@echo "🐳 Stopping docker-compose services..."
+	@docker-compose down
+	@echo "✅ Services stopped!"
+
+docker-clean: ## Clean Docker images and containers
+	@echo "🐳 Cleaning Docker resources..."
+	@docker stop common-go-container || true
+	@docker rm common-go-container || true
+	@docker rmi common-go-app || true
+	@docker-compose down || true
+	@echo "✅ Docker resources cleaned!"
 
 test-api: ## Test all API endpoints
 	@echo "🧪 Testing API endpoints..."

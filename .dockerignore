@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+README.md
+
+# Development files
+.air.toml
+dev.sh
+Makefile
+
+# Dependencies and build artifacts
+node_modules
+tmp/
+*.log
+build-errors.log
+
+# Environment files
+.env.local
+.env.example
+
+# Audio files (will be created at runtime)
+audio/
+logs/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Test files
+*_test.go
+test/
+coverage.out
+
+# Documentation
+docs/
+examples/
+
+# Temporary files
+*.tmp
+*.temp
